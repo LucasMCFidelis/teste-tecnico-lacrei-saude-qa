@@ -13,7 +13,4 @@ export default defineConfig({
       return config;
     },
   },
-  expose: {
-    apiUrl: process.env.API_URL || "http://localhost:3000",
-  },
 });
