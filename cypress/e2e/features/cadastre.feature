@@ -28,3 +28,11 @@ Funcionalidade: Cadastro de pessoa usuária
         E preencho o campo "E-mail" com um e-mail em formato inválido
         Então devo visualizar a mensagem de e-mail inválido no campo E-mail
         E o botão de submeter o formulário deve estar desabilitado
+    
+    @validation
+    Cenário: Validar bloqueio de cadastro com e-mails não coincidentes
+        Dado que estou na página de cadastro como uma pessoa não cadastrada
+        Quando preencho todos os campos obrigatórios com dados válidos
+        E preencho o campo Confirmação de e-mail com um valor diferente
+        Então devo visualizar uma mensagem informando que os e-mails não coincidem
+        E o botão de submeter o formulário deve estar desabilitado

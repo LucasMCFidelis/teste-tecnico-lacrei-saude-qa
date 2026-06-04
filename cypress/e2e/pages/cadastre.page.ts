@@ -62,20 +62,40 @@ export class CadastrePage extends BasePage {
     fieldSelector,
     message,
   }: {
-    fieldSelector?: string;
+    fieldSelector?: string | Array<string>;
     message: string;
   }) {
-    if (fieldSelector) {
-      cy.get(fieldSelector)
-        .parent()
-        .find(CADASTRE_SELECTORS.alertMessage)
-        .should("be.visible")
-        .and("contain", message);
-    } else {
+    if (!fieldSelector) {
       cy.contains(CADASTRE_SELECTORS.alertMessage, message).should(
         "be.visible",
       );
+      return;
     }
+
+    const selectors = Array.isArray(fieldSelector)
+      ? fieldSelector
+      : [fieldSelector];
+
+    let found = false;
+
+    cy.then(() => {
+      selectors.forEach((selector) => {
+        cy.get(selector)
+          .parent()
+          .find(CADASTRE_SELECTORS.alertMessage)
+          .then(($alerts) => {
+            const hasMessage = [...$alerts].some((alert) =>
+              alert.textContent?.includes(message),
+            );
+
+            if (hasMessage) {
+              found = true;
+            }
+          });
+      });
+    }).then(() => {
+      expect(found, `Alert message "${message}" found`).to.eq(true);
+    });
   }
 
   validateSubmitButtonState(enabled: boolean) {

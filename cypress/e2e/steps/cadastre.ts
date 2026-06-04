@@ -46,8 +46,15 @@ When(
   },
 );
 
-When("preencho o campo {string} com um e-mail em formato inválido", (field: string) => {
-  cadastrePage.fillEmail("email-invalido");
+When(
+  "preencho o campo {string} com um e-mail em formato inválido",
+  (field: string) => {
+    cadastrePage.fillEmail("email-invalido");
+  },
+);
+
+When("preencho o campo Confirmação de e-mail com um valor diferente", () => {
+  cadastrePage.fillConfirmEmail(faker.internet.email());
 });
 
 When("submeto o formulário de cadastro", () => {
@@ -71,12 +78,22 @@ Then(
   },
 );
 
+Then("devo visualizar a mensagem de e-mail inválido no campo E-mail", () => {
+  cadastrePage.validateAlertMessage({
+    fieldSelector: CADASTRE_SELECTORS.emailLabel,
+    message: CADASTRE_MESSAGES.emailInvalid,
+  });
+});
+
 Then(
-  "devo visualizar a mensagem de e-mail inválido no campo E-mail",
+  "devo visualizar uma mensagem informando que os e-mails não coincidem",
   () => {
     cadastrePage.validateAlertMessage({
-      fieldSelector: CADASTRE_SELECTORS.emailLabel,
-      message: CADASTRE_MESSAGES.emailInvalid,
+      fieldSelector: [
+        CADASTRE_SELECTORS.emailLabel,
+        CADASTRE_SELECTORS.confirmEmailLabel,
+      ],
+      message: CADASTRE_MESSAGES.emailMismatch,
     });
   },
 );
