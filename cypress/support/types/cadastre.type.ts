@@ -3,4 +3,4 @@ export type RegistrationData = {
   lastName: string;
   email: string;
   password: string;
-}
+};
