@@ -50,3 +50,12 @@ Funcionalidade: Cadastro de pessoa usuária
         Quando preencho todos os campos obrigatórios com dados válidos
         E aceito apenas os termos de uso e privacidade
         Então o botão de submeter o formulário deve estar desabilitado
+
+    @validation
+    Cenário: Validar bloqueio de cadastro com confirmação de senha diferente
+        Dado que estou na página de cadastro como uma pessoa não cadastrada
+        Quando preencho todos os campos obrigatórios com dados válidos
+        E preencho o campo Confirme sua senha com um valor diferente
+        E aceito os termos nos checkboxes obrigatórios
+        Então devo visualizar uma mensagem informando que as senhas não coincidem
+        E o botão de submeter o formulário deve estar desabilitado

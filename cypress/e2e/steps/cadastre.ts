@@ -57,6 +57,10 @@ When("preencho o campo Confirmação de e-mail com um valor diferente", () => {
   cadastrePage.fillConfirmEmail(faker.internet.email());
 });
 
+When("preencho o campo Confirme sua senha com um valor diferente", () => {
+  cadastrePage.fillConfirmPassword("SenhaDiferente123!");
+});
+
 When("aceito apenas o checkbox de idade mínima", () => {
   cadastrePage.confirmAge();
 });
@@ -97,11 +101,20 @@ Then(
   "devo visualizar uma mensagem informando que os e-mails não coincidem",
   () => {
     cadastrePage.validateAlertMessage({
-      fieldSelector: [
-        CADASTRE_SELECTORS.emailLabel,
-        CADASTRE_SELECTORS.confirmEmailLabel,
-      ],
+      fieldSelector: CADASTRE_SELECTORS.confirmEmailLabel,
+
       message: CADASTRE_MESSAGES.emailMismatch,
+    });
+  },
+);
+
+Then(
+  "devo visualizar uma mensagem informando que as senhas não coincidem",
+  () => {
+    cadastrePage.validateAlertMessage({
+      fieldSelector: CADASTRE_SELECTORS.confirmPasswordLabel,
+
+      message: CADASTRE_MESSAGES.passwordMismatch,
     });
   },
 );

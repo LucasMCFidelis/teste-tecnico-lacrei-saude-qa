@@ -3,4 +3,5 @@ export const CADASTRE_MESSAGES = {
   emailInvalid:
     "Por favor, utilize um formato de e-mail válido. Por exemplo: email@dominio.com.br.",
   emailMismatch: "Os e-mails não correspondem, digite novamente.",
+  passwordMismatch: "Senhas incompatíveis, tente novamente.",
 } as const;
