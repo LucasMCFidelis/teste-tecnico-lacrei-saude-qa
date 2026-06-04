@@ -1,3 +1,4 @@
+import { PASSWORD_CRITERIA } from "../../support/constants/messages/cadastre.messages";
 import { CADASTRE_SELECTORS } from "../../support/constants/selectors/cadastre.selectors";
 import { URLS } from "../../support/constants/urls";
 import { RegistrationData } from "../../support/types/cadastre.type";
@@ -96,6 +97,46 @@ export class CadastrePage extends BasePage {
     }).then(() => {
       expect(found, `Alert message "${message}" found`).to.eq(true);
     });
+  }
+
+  validatePasswordCriterion({
+    criterion,
+    stateError = false,
+    hasUniqueError = false,
+  }: {
+    criterion: string;
+    stateError?: boolean;
+    hasUniqueError?: boolean;
+  }) {
+    if (hasUniqueError && !stateError) {
+      throw new Error(
+        "hasUniqueError só pode ser usado quando stateError for true",
+      );
+    }
+
+    const criterionText = PASSWORD_CRITERIA[criterion];
+
+    const passwordCriterion = cy
+      .get(CADASTRE_SELECTORS.passwordCriteria)
+      .contains(criterionText)
+      .should("be.visible")
+      .parent();
+
+    passwordCriterion.find("svg").should(($svg) => {
+      const hasError = $svg.attr("fill") === "error";
+      expect(hasError, `Criterion "${criterion}" error state`).to.eq(
+        stateError,
+      );
+    });
+
+    if (hasUniqueError) {
+      cy.get(CADASTRE_SELECTORS.passwordCriteria)
+        .find("svg[fill='error']")
+        .should("have.length", 1)
+        .parent()
+        .contains(criterionText)
+        .should("be.visible");
+    }
   }
 
   validateSubmitButtonState(enabled: boolean) {

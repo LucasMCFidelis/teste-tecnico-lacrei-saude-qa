@@ -59,3 +59,28 @@ Funcionalidade: Cadastro de pessoa usuária
         E aceito os termos nos checkboxes obrigatórios
         Então devo visualizar uma mensagem informando que as senhas não coincidem
         E o botão de submeter o formulário deve estar desabilitado
+
+    @regression
+    @validation
+    Cenário: Validar bloqueio de cadastro com campos obrigatórios em branco
+        Dado que estou na página de cadastro como uma pessoa não cadastrada
+        Quando não preencho nenhum campo obrigatório
+        Então o botão de submeter o formulário deve estar desabilitado
+
+    @regression
+    @validation
+    Esquema do Cenário: Validar bloqueio de cadastro com senha "<caso>"
+        Dado que estou na página de cadastro como uma pessoa não cadastrada
+        Quando preencho todos os campos obrigatórios com dados válidos
+        E preencho o campo Senha com "<senha>"
+        E aceito os termos nos checkboxes obrigatórios
+        Então devo visualizar apenas o critério de senha "<criterio>" como não atendido
+        E o botão de submeter o formulário deve estar desabilitado
+
+        Exemplos:
+            | caso                   | senha            | criterio          |
+            | sem letra maiúscula    | senhasegura123!  | uppercase         |
+            | sem letra minúscula    | SENHASEGURA123!  | lowercase         |
+            | sem número             | SenhaSegura!     | number            |
+            | sem caractere especial | SenhaSegura123   | specialCharacter  |
+            | sem caracteres mínimos | S1!abc4           | minLength         |

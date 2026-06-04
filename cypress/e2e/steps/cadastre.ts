@@ -57,6 +57,10 @@ When("preencho o campo Confirmação de e-mail com um valor diferente", () => {
   cadastrePage.fillConfirmEmail(faker.internet.email());
 });
 
+When("preencho o campo Senha com {string}", (password: string) => {
+  cadastrePage.fillPassword(password);
+});
+
 When("preencho o campo Confirme sua senha com um valor diferente", () => {
   cadastrePage.fillConfirmPassword("SenhaDiferente123!");
 });
@@ -68,6 +72,8 @@ When("aceito apenas o checkbox de idade mínima", () => {
 When("aceito apenas os termos de uso e privacidade", () => {
   cadastrePage.acceptTerms();
 });
+
+When("não preencho nenhum campo obrigatório", () => {});
 
 When("submeto o formulário de cadastro", () => {
   cadastrePage.submitCadastre();
@@ -115,6 +121,17 @@ Then(
       fieldSelector: CADASTRE_SELECTORS.confirmPasswordLabel,
 
       message: CADASTRE_MESSAGES.passwordMismatch,
+    });
+  },
+);
+
+Then(
+  "devo visualizar apenas o critério de senha {string} como não atendido",
+  (criterion: string) => {
+    cadastrePage.validatePasswordCriterion({
+      criterion,
+      stateError: true,
+      hasUniqueError: true,
     });
   },
 );
