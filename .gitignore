@@ -136,3 +136,4 @@ dist
 .pnp.*
 
 cypress/screenshots
+cypress/reports

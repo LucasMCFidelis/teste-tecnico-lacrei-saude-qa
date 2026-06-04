@@ -9,6 +9,15 @@ dotenv.config();
 export default defineConfig({
   e2e: {
     baseUrl: process.env.BASE_URL || null,
+
+    reporter: "mochawesome",
+    reporterOptions: {
+      reportDir: "cypress/reports/json",
+      overwrite: false,
+      html: false,
+      json: true,
+    },
+
     supportFile: "cypress/support/e2e.ts",
     specPattern: "**/*.feature",
     async setupNodeEvents(
