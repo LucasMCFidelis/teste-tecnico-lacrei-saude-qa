@@ -18,4 +18,6 @@ export const CADASTRE_SELECTORS = {
 
   submitButton: 'button[type="submit"]',
   backButton: 'button[type="button"]',
+
+  alertMessage: '[role="alert"]',
 } as const;

@@ -3,10 +3,24 @@ import { faker } from "@faker-js/faker";
 
 import { cadastrePage } from "../pages/cadastre.page";
 import { URLS } from "../../support/constants/urls";
-
+import { cadastreApi } from "../../support/api-client/cadastre.api";
+import { CADASTRE_MESSAGES } from "../../support/constants/messages/cadastre.messages";
 
 Given("que estou na página de cadastro como uma pessoa não cadastrada", () => {
   cadastrePage.visit();
+});
+
+Given("existe uma conta cadastrada com o e-mail {string}", (email: string) => {
+  cadastreApi
+    .createUser({
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+      email,
+      password: "SenhaSegura123!",
+    })
+    .then((response) => {
+      expect([201, 409]).to.include(response.status);
+    });
 });
 
 When("preencho todos os campos obrigatórios com dados válidos", () => {
@@ -23,10 +37,31 @@ When("aceito os termos nos checkboxes obrigatórios", () => {
   cadastrePage.confirmAge();
 });
 
+When(
+  "preencho os campos {string} e {string} com {string}",
+  (field: string, fieldConfirm: string, value: string) => {
+    cadastrePage.fillEmail(value);
+    cadastrePage.fillConfirmEmail(value);
+  },
+);
+
 When("submeto o formulário de cadastro", () => {
   cadastrePage.submitCadastre();
+});
+
+Then("devo permanecer na página de cadastro", () => {
+  cadastrePage.validateUrl(URLS.CADASTRE);
 });
 
 Then("devo ser redirecionada para a página de confirmação de cadastro", () => {
   cadastrePage.validateUrl(URLS.CADASTRE_CONFIRMATION);
 });
+
+Then(
+  "devo visualizar uma mensagem informando que o e-mail já está em uso",
+  () => {
+    cadastrePage.validateAlertMessage({
+      message: CADASTRE_MESSAGES.emailInUse,
+    });
+  },
+);

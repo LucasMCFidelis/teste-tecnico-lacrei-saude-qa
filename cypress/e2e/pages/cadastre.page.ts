@@ -1,14 +1,8 @@
-import { CADASTRE_SELECTORS } from "../../support/constants/cadastre.selectors";
+import { CADASTRE_SELECTORS } from "../../support/constants/selectors/cadastre.selectors";
 import { URLS } from "../../support/constants/urls";
+import { RegistrationData } from "../../support/types/cadastre.type";
 
 import { BasePage } from "./base.page";
-
-interface RegistrationData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
 
 export class CadastrePage extends BasePage {
   visit() {
@@ -62,6 +56,26 @@ export class CadastrePage extends BasePage {
     this.fillConfirmEmail(data.email);
     this.fillPassword(data.password);
     this.fillConfirmPassword(data.password);
+  }
+
+  validateAlertMessage({
+    fieldSelector,
+    message,
+  }: {
+    fieldSelector?: string;
+    message: string;
+  }) {
+    if (fieldSelector) {
+      cy.get(fieldSelector)
+        .parent()
+        .find(CADASTRE_SELECTORS.alertMessage)
+        .should("be.visible")
+        .and("contain", message);
+    } else {
+      cy.contains(CADASTRE_SELECTORS.alertMessage, message).should(
+        "be.visible",
+      );
+    }
   }
 }
 

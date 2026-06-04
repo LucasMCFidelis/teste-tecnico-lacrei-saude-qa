@@ -8,3 +8,15 @@ Funcionalidade: Cadastro de pessoa usuária
         E aceito os termos nos checkboxes obrigatórios
         E submeto o formulário de cadastro
         Então devo ser redirecionada para a página de confirmação de cadastro
+    
+    @critical
+    @validation
+    Cenário: Validar bloqueio de cadastro com e-mail já cadastrado na plataforma
+        Dado existe uma conta cadastrada com o e-mail "teste@email.com"
+        E que estou na página de cadastro como uma pessoa não cadastrada
+        Quando preencho todos os campos obrigatórios com dados válidos
+        E preencho os campos "E-mail" e "Confirmação de e-mail" com "teste@email.com"
+        E aceito os termos nos checkboxes obrigatórios
+        E submeto o formulário de cadastro
+        Então devo permanecer na página de cadastro
+        E devo visualizar uma mensagem informando que o e-mail já está em uso
