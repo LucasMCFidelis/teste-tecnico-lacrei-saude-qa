@@ -5,6 +5,7 @@ import { cadastrePage } from "../pages/cadastre.page";
 import { URLS } from "../../support/constants/urls";
 import { cadastreApi } from "../../support/api-client/cadastre.api";
 import { CADASTRE_MESSAGES } from "../../support/constants/messages/cadastre.messages";
+import { CADASTRE_SELECTORS } from "../../support/constants/selectors/cadastre.selectors";
 
 Given("que estou na página de cadastro como uma pessoa não cadastrada", () => {
   cadastrePage.visit();
@@ -45,6 +46,10 @@ When(
   },
 );
 
+When("preencho o campo {string} com um e-mail em formato inválido", (field: string) => {
+  cadastrePage.fillEmail("email-invalido");
+});
+
 When("submeto o formulário de cadastro", () => {
   cadastrePage.submitCadastre();
 });
@@ -65,3 +70,17 @@ Then(
     });
   },
 );
+
+Then(
+  "devo visualizar a mensagem de e-mail inválido no campo E-mail",
+  () => {
+    cadastrePage.validateAlertMessage({
+      fieldSelector: CADASTRE_SELECTORS.emailLabel,
+      message: CADASTRE_MESSAGES.emailInvalid,
+    });
+  },
+);
+
+Then("o botão de submeter o formulário deve estar desabilitado", () => {
+  cadastrePage.validateSubmitButtonState(false);
+});

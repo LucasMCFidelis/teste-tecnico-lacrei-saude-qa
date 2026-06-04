@@ -77,6 +77,11 @@ export class CadastrePage extends BasePage {
       );
     }
   }
+
+  validateSubmitButtonState(enabled: boolean) {
+    const assertion = enabled ? "not.be.disabled" : "be.disabled";
+    cy.get(CADASTRE_SELECTORS.submitButton).should(assertion);
+  }
 }
 
 export const cadastrePage = new CadastrePage();
