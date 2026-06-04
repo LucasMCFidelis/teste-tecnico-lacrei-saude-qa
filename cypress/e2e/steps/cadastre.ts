@@ -57,6 +57,14 @@ When("preencho o campo Confirmação de e-mail com um valor diferente", () => {
   cadastrePage.fillConfirmEmail(faker.internet.email());
 });
 
+When("aceito apenas o checkbox de idade mínima", () => {
+  cadastrePage.confirmAge();
+});
+
+When("aceito apenas os termos de uso e privacidade", () => {
+  cadastrePage.acceptTerms();
+});
+
 When("submeto o formulário de cadastro", () => {
   cadastrePage.submitCadastre();
 });

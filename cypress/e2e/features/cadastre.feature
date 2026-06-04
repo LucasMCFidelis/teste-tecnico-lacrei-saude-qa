@@ -36,3 +36,17 @@ Funcionalidade: Cadastro de pessoa usuária
         E preencho o campo Confirmação de e-mail com um valor diferente
         Então devo visualizar uma mensagem informando que os e-mails não coincidem
         E o botão de submeter o formulário deve estar desabilitado
+
+    @validation
+    Cenário: Validar bloqueio de cadastro sem aceite dos termos de uso
+        Dado que estou na página de cadastro como uma pessoa não cadastrada
+        Quando preencho todos os campos obrigatórios com dados válidos
+        E aceito apenas o checkbox de idade mínima
+        Então o botão de submeter o formulário deve estar desabilitado
+
+    @validation
+    Cenário: Validar bloqueio de cadastro sem confirmação de idade mínima
+        Dado que estou na página de cadastro como uma pessoa não cadastrada
+        Quando preencho todos os campos obrigatórios com dados válidos
+        E aceito apenas os termos de uso e privacidade
+        Então o botão de submeter o formulário deve estar desabilitado
