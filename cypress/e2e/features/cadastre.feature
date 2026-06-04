@@ -2,7 +2,7 @@
 @cadastre
 Funcionalidade: Cadastro de pessoa usuária
     @critical
-    Cenário: Cadastro bem-sucedido com todos os dados obrigatórios preenchidos
+    Cenário: CT-1 Cadastro bem-sucedido com todos os dados obrigatórios preenchidos
         Dado que estou na página de cadastro como uma pessoa não cadastrada
         Quando preencho todos os campos obrigatórios com dados válidos
         E aceito os termos nos checkboxes obrigatórios
@@ -10,8 +10,7 @@ Funcionalidade: Cadastro de pessoa usuária
         Então devo ser redirecionada para a página de confirmação de cadastro
     
     @critical
-    @validation
-    Cenário: Validar bloqueio de cadastro com e-mail já cadastrado na plataforma
+    Cenário: CT-2 Validar bloqueio de cadastro com e-mail já cadastrado na plataforma
         Dado existe uma conta cadastrada com o e-mail "teste@email.com"
         E que estou na página de cadastro como uma pessoa não cadastrada
         Quando preencho todos os campos obrigatórios com dados válidos
@@ -22,7 +21,7 @@ Funcionalidade: Cadastro de pessoa usuária
         E devo visualizar uma mensagem informando que o e-mail já está em uso
 
     @validation
-    Cenário: Validar bloqueio de cadastro com e-mail em formato inválido
+    Cenário: CT-3 Validar bloqueio de cadastro com e-mail em formato inválido
         Dado que estou na página de cadastro como uma pessoa não cadastrada
         Quando preencho todos os campos obrigatórios com dados válidos
         E preencho o campo "E-mail" com um e-mail em formato inválido
@@ -30,7 +29,7 @@ Funcionalidade: Cadastro de pessoa usuária
         E o botão de submeter o formulário deve estar desabilitado
     
     @validation
-    Cenário: Validar bloqueio de cadastro com e-mails não coincidentes
+    Cenário: CT-4 Validar bloqueio de cadastro com e-mails não coincidentes
         Dado que estou na página de cadastro como uma pessoa não cadastrada
         Quando preencho todos os campos obrigatórios com dados válidos
         E preencho o campo Confirmação de e-mail com um valor diferente
@@ -38,21 +37,21 @@ Funcionalidade: Cadastro de pessoa usuária
         E o botão de submeter o formulário deve estar desabilitado
 
     @validation
-    Cenário: Validar bloqueio de cadastro sem aceite dos termos de uso
+    Cenário: CT-7 Validar bloqueio de cadastro sem aceite dos termos de uso
         Dado que estou na página de cadastro como uma pessoa não cadastrada
         Quando preencho todos os campos obrigatórios com dados válidos
         E aceito apenas o checkbox de idade mínima
         Então o botão de submeter o formulário deve estar desabilitado
 
     @validation
-    Cenário: Validar bloqueio de cadastro sem confirmação de idade mínima
+    Cenário: CT-8 Validar bloqueio de cadastro sem confirmação de idade mínima
         Dado que estou na página de cadastro como uma pessoa não cadastrada
         Quando preencho todos os campos obrigatórios com dados válidos
         E aceito apenas os termos de uso e privacidade
         Então o botão de submeter o formulário deve estar desabilitado
 
     @validation
-    Cenário: Validar bloqueio de cadastro com confirmação de senha diferente
+    Cenário: CT-6 Validar bloqueio de cadastro com confirmação de senha diferente
         Dado que estou na página de cadastro como uma pessoa não cadastrada
         Quando preencho todos os campos obrigatórios com dados válidos
         E preencho o campo Confirme sua senha com um valor diferente
@@ -61,15 +60,13 @@ Funcionalidade: Cadastro de pessoa usuária
         E o botão de submeter o formulário deve estar desabilitado
 
     @regression
-    @validation
-    Cenário: Validar bloqueio de cadastro com campos obrigatórios em branco
+    Cenário: CT-9 Validar bloqueio de cadastro com campos obrigatórios em branco
         Dado que estou na página de cadastro como uma pessoa não cadastrada
         Quando não preencho nenhum campo obrigatório
         Então o botão de submeter o formulário deve estar desabilitado
 
     @regression
-    @validation
-    Esquema do Cenário: Validar bloqueio de cadastro com senha "<caso>"
+    Esquema do Cenário: <id> Validar bloqueio de cadastro com senha <caso>
         Dado que estou na página de cadastro como uma pessoa não cadastrada
         Quando preencho todos os campos obrigatórios com dados válidos
         E preencho o campo Senha com "<senha>"
@@ -78,9 +75,9 @@ Funcionalidade: Cadastro de pessoa usuária
         E o botão de submeter o formulário deve estar desabilitado
 
         Exemplos:
-            | caso                   | senha            | criterio          |
-            | sem letra maiúscula    | senhasegura123!  | uppercase         |
-            | sem letra minúscula    | SENHASEGURA123!  | lowercase         |
-            | sem número             | SenhaSegura!     | number            |
-            | sem caractere especial | SenhaSegura123   | specialCharacter  |
-            | sem caracteres mínimos | S1!abc4           | minLength         |
+            | id    | caso                   | senha            | criterio          |
+            | CT-5  | sem letra maiúscula    | senhasegura123!  | uppercase         |
+            | CT-10 | sem letra minúscula    | SENHASEGURA123!  | lowercase         |
+            | CT-11 | sem caractere especial | SenhaSegura123   | specialCharacter  |
+            | CT-12 | sem número             | SenhaSegura!     | number            |
+            | CT-13 | sem caracteres mínimos | S1!abc4          | minLength         |
