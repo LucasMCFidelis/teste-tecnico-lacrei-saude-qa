@@ -16,7 +16,12 @@
     "forceConsistentCasingInFileNames": true,
 
     /* Interop */
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@badeball/cypress-cucumber-preprocessor/*": [
+        "./node_modules/@badeball/cypress-cucumber-preprocessor/dist/subpath-entrypoints/*"
+      ]
+    }
   },
   "include": ["cypress/**/*.ts", "cypress.config.ts"]
 }

@@ -7,14 +7,15 @@
     "lint": "eslint . --ext .ts,.js",
     "lint:cypress": "eslint cypress --ext .ts",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "cy:smoke": "cypress run --env tags=@smoke",
+    "cy:regression": "cypress run --env tags=@regression"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@cypress/grep": "^6.0.0",
     "@eslint/js": "^9.39.2",
     "@types/node": "^25.9.1",
     "cypress": "^15.8.1",
@@ -27,5 +28,9 @@
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.50.1"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^24.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8"
   }
 }
