@@ -47,22 +47,13 @@ async function executarCadastro(id: number) {
     await page.click(CADASTRE_SELECTORS.acceptedPrivacyCheckbox);
     await page.click(CADASTRE_SELECTORS.is18YearsOldOrMoreCheckbox);
 
-    await page.click(CADASTRE_SELECTORS.submitButton);
-
     const isDisabled = await page.$eval(
       CADASTRE_SELECTORS.submitButton,
       (button) => (button as HTMLButtonElement).disabled,
     );
     console.log(`Botão desabilitado: ${isDisabled}`);
 
-    await page.click(CADASTRE_SELECTORS.submitButton);
-
-    const erros = await page.$$eval(
-      '[role="alert"], .error, .text-error',
-      (elements) => elements.map((el) => el.textContent),
-    );
-
-    console.log(`Usuário ${id} erros:`, erros);
+    await page.keyboard.press("Enter");
 
     await page.waitForFunction(
       (confirmationPath) => window.location.pathname.includes(confirmationPath),
