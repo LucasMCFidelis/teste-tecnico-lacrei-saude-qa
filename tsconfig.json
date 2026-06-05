@@ -23,5 +23,5 @@
       ]
     }
   },
-  "include": ["cypress/**/*.ts", "cypress.config.ts", "performance/**/*.ts",],
+  "include": ["cypress/**/*.ts", "cypress.config.ts", "performance/**/*.ts"]
 }
