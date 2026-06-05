@@ -199,21 +199,24 @@ Configuração utilizada:
 - 15 usuários simultâneos
 - Concorrência máxima: 5 usuários
 - Timeout: 30 segundos
-### Fluxo de Cadastro
- 
-#### Resultado
- 
+
+## Fluxo de Cadastro
+
+### Resultado
+
 * 14 de 15 usuários concluíram com sucesso
-* Tempos de resposta variaram entre **11.809ms e 27.131ms**
-* Tempo médio de resposta: **16.925ms (≈ 16,9s)**
+* Tempos de resposta variaram entre **7.058ms e 18.349ms**
+* Tempo médio de resposta: **10.068ms (≈ 10,1s)**
 * 1 execução falhou durante o fluxo
-#### Falhas Identificadas
- 
+
+### Falhas Identificadas
+
 * 1 falha por timeout (`Waiting failed: 30000ms exceeded`)
-* O usuário 9 não concluiu o fluxo dentro do tempo limite configurado de 30 segundos.
-#### Conclusão
- 
-O fluxo de cadastro apresentou taxa de sucesso de **93,3% (14 de 15 usuários)** sob execução concorrente. As execuções bem-sucedidas concluíram o fluxo em média em **16,9 segundos**, com apenas uma falha por timeout. Os resultados indicam que o fluxo manteve boa estabilidade durante a carga aplicada, embora o tempo de resposta tenha apresentado variações entre os usuários concorrentes.
+* O usuário 13 não concluiu o fluxo dentro do tempo limite configurado de 30 segundos.
+
+### Conclusão
+
+O fluxo de cadastro apresentou taxa de sucesso de **93,3% (14 de 15 usuários)** sob execução concorrente. As execuções bem-sucedidas concluíram o fluxo em média em **10,1 segundos**. Apesar de uma falha isolada por timeout, os resultados indicam boa estabilidade do fluxo de cadastro no ambiente de staging para a carga aplicada.
  
 ### Fluxo de Busca de Profissional
  
