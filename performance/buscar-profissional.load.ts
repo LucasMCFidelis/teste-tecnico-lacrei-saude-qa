@@ -2,6 +2,7 @@ import puppeteer from "puppeteer";
 
 import { LOGIN_SELECTORS } from "../cypress/support/constants/selectors/login.selectors";
 import { SEARCH_SELECTORS } from "../cypress/support/constants/selectors/search.selectors";
+import { URLS } from "../cypress/support/constants/urls";
 
 import { CONFIG } from "./config";
 import { ResultadoCarga } from "./result-test.interface";
@@ -20,7 +21,7 @@ async function executarBusca(id: number) {
   };
 
   try {
-    const urlLogin = `${CONFIG.baseUrl}login/`;
+    const urlLogin = `${CONFIG.baseUrl}${URLS.LOGIN}`;
     await page.goto(urlLogin, { waitUntil: "networkidle2" });
 
     await page.waitForSelector(LOGIN_SELECTORS.emailInput, {

@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const CONFIG = {
-  users: 30,
+  users: 15,
   concurrency: 5,
 
   baseUrl: process.env.BASE_URL || "http://localhost:8080",

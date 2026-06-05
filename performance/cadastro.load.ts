@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import puppeteer from "puppeteer";
 
 import { CADASTRE_SELECTORS } from "../cypress/support/constants/selectors/cadastre.selectors.js";
+import { URLS } from "../cypress/support/constants/urls.js";
 
 import { CONFIG } from "./config.js";
 import { ResultadoCarga } from "./result-test.interface.js";
@@ -20,11 +21,11 @@ async function executarCadastro(id: number) {
     fluxo: "Cadastro",
   };
 
-  const email = `qa-${Date.now()}-${randomUUID()}@mailinator.com`;
+  const email = `qa-${Date.now()}-${randomUUID()}@teste.com`;
 
   try {
     const inicio = Date.now();
-    const urlCadastro = `${CONFIG.baseUrl}saude/paciente/cadastrar`;
+    const urlCadastro = `${CONFIG.baseUrl}${URLS.CADASTRE}`;
 
     await page.goto(urlCadastro, {
       waitUntil: "networkidle2",
@@ -34,7 +35,7 @@ async function executarCadastro(id: number) {
       timeout: CONFIG.timeout,
     });
 
-    await page.type(CADASTRE_SELECTORS.firstNameInput, `Usuario${id}`);
+    await page.type(CADASTRE_SELECTORS.firstNameInput, `Usuario`);
     await page.type(CADASTRE_SELECTORS.lastNameInput, "Teste");
 
     await page.type(CADASTRE_SELECTORS.emailInput, email);
@@ -48,9 +49,33 @@ async function executarCadastro(id: number) {
 
     await page.click(CADASTRE_SELECTORS.submitButton);
 
+    const isDisabled = await page.$eval(
+      CADASTRE_SELECTORS.submitButton,
+      (button) => (button as HTMLButtonElement).disabled,
+    );
+    console.log(`Botão desabilitado: ${isDisabled}`);
+
+    await page.click(CADASTRE_SELECTORS.submitButton);
+
+    const erros = await page.$$eval(
+      '[role="alert"], .error, .text-error',
+      (elements) => elements.map((el) => el.textContent),
+    );
+
+    console.log(`Usuário ${id} erros:`, erros);
+
+    await page.waitForFunction(
+      (confirmationPath) => window.location.pathname.includes(confirmationPath),
+      {
+        timeout: CONFIG.timeout,
+      },
+      URLS.CADASTRE_CONFIRMATION,
+    );
+
     resultado["tempoMs"] = Date.now() - inicio;
     resultado["status"] = "✅ OK";
   } catch (error: any) {
+    console.error(`Usuário ${id}: ${page.url()}`);
     resultado["status"] = `❌ ${error.message}`;
   } finally {
     await browser.close();
