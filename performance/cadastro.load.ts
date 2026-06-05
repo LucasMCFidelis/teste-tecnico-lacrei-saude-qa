@@ -24,7 +24,6 @@ async function executarCadastro(id: number) {
   const email = `qa-${Date.now()}-${randomUUID()}@teste.com`;
 
   try {
-    const inicio = Date.now();
     const urlCadastro = `${CONFIG.baseUrl}${URLS.CADASTRE}`;
 
     await page.goto(urlCadastro, {
@@ -52,6 +51,8 @@ async function executarCadastro(id: number) {
       (button) => (button as HTMLButtonElement).disabled,
     );
     console.log(`Botão desabilitado: ${isDisabled}`);
+
+    const inicio = Date.now();
 
     await page.keyboard.press("Enter");
 
