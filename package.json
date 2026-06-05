@@ -13,7 +13,10 @@
     "cy:validation": "npm run cy:run -- --env tags=@validation",
     "cy:regression": "npm run cy:run -- --env tags=@regression",
     "cy:all": "run-s --continue-on-error cy:critical cy:regression cy:validation",
-    "generate-reports": "npx mochawesome-merge cypress/reports/json/*.json -o cypress/reports/report.json && npx marge cypress/reports/report.json --reportDir cypress/reports/html --inline"
+    "generate-reports": "npx mochawesome-merge cypress/reports/json/*.json -o cypress/reports/report.json && npx marge cypress/reports/report.json --reportDir cypress/reports/html --inline",
+    "load:cadastro": "tsx performance/cadastro.load.ts",
+    "load:busca": "tsx performance/buscar-profissional.load.ts",
+    "load:all": "npm-run-all --continue-on-error load:cadastro load:busca"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +38,7 @@
     "mochawesome-report-generator": "^6.3.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.8.1",
+    "puppeteer": "^25.1.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.50.1"
   },
