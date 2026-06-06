@@ -16,6 +16,8 @@ jobs:
     env:
       BASE_URL: ${{ secrets.BASE_URL }}
       API_URL: ${{ secrets.API_URL }}
+      LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
+      LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
 
     steps:
       - name: Checkout repositório
