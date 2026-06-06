@@ -10,6 +10,11 @@ export default defineConfig({
   e2e: {
     baseUrl: process.env.BASE_URL || null,
 
+    env: {
+      DEFAULT_USER_EMAIL: process.env.LOGIN_EMAIL || null,
+      DEFAULT_USER_PASSWORD: process.env.LOGIN_PASSWORD || null,
+    },
+
     reporter: "mochawesome",
     reporterOptions: {
       reportDir: "cypress/reports/json",

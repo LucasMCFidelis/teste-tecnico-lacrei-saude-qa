@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 
 import { LOGIN_SELECTORS } from "../cypress/support/constants/selectors/login.selectors";
-import { SEARCH_SELECTORS } from "../cypress/support/constants/selectors/search.selectors";
+import { SEARCH_SELECTORS } from "../cypress/support/constants/selectors/search-professional.selectors";
 import { URLS } from "../cypress/support/constants/urls";
 
 import { CONFIG } from "./config";
